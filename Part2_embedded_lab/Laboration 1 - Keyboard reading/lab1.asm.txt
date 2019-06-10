@@ -1,0 +1,130 @@
+/*
+ * lab1.asm
+ * Laboration 1 av 3
+ * Denna programmkod anv‰nds fˆr att lysa ett bin‰rt tal pÂ leddisplayen
+ * Talet pÂ leddisplayen representerar talen 0-11
+ * D‰r 1=0 och sista knappen # ‰r talet 11
+ * 
+ *		
+ *
+ * 
+ * 
+ * 
+ *
+ * Author:	HADI DEKNACHE
+ *
+ * Date:	2015-11-11
+ */ 
+ 
+;==============================================================================
+; Definitions of registers, etc. ("constants")
+;==============================================================================
+	.DEF TEMP		= R16		; definierar R16 till TEMP
+	.DEF RVAL		= R24		; Definierar R24 till RVAL
+	.EQU NO_KEY		= 0x0f		; Ger NO_KEY vƒrdet 0x0f
+	.EQU RESET		= 0x0000	; Reset ges v‰rdet 0000
+	.EQU PM_START	= 0x0056	; PM_START ges v‰rdet 0056
+
+;==============================================================================
+; Start of program
+;==============================================================================
+	.CSEG 			; Start av kod
+	.ORG RESET		; R‰knare Âterst‰lls till 0 i Reset
+	RJMP init		; hoppar till init subrutinen
+	.ORG PM_START 	; R‰knare fˆr v‰rdet frÂn PM_START
+;==============================================================================
+; Basic initializations of stack pointer, I/O pins, etc.
+;==============================================================================
+init:
+	; Set stack pointer to point at the end of RAM.
+	LDI TEMP, LOW(RAMEND)
+	OUT SPL, TEMP
+	LDI TEMP, HIGH(RAMEND)
+	OUT SPH, TEMP
+	; Initialize pins
+	CALL init_pins
+	; Jump to main part of program
+	RJMP main
+
+;==============================================================================
+; Initialize I/O pins
+;==============================================================================
+init_pins:	
+	LDI TEMP, 0x80	 		; Uppgift 3.2.3
+	OUT DDRC, TEMP	 		; Skriver ut TEMP pÂ DDRC
+		
+	LDI TEMP, 0xf0	 		; Laddar TEMP med 0xf0(11110000)
+	OUT DDRF, TEMP	 		; skriver ut det pÂ DDRF v‰rdet i Temp
+
+	OUT PORTF, TEMP 		; Skriver ut till portF v‰rdet Temp
+
+	OUT PORTB, TEMP	 		; Temp v‰rdet skickas ut till portB
+
+	OUT DDRB, TEMP	 		; Skriver ut temp i DDRB
+	
+	RET		 				; ÂÅterv‰nder
+
+;==============================================================================
+; Main part of program
+;==============================================================================
+main:		
+CALL read_keyboard
+	LSL RVAL 	 			; Flyttar flyttar värdet i RVAL Ât v‰nster
+	LSL RVAL
+	LSL RVAL
+	LSL RVAL
+OUT	PORTF, RVAL				; V‰rdet i RVAL skickas ut i porto
+	NOP						; Delay 2 cycles 
+	NOP
+	RJMP main				; hoppar tillbaka till main
+
+read_keyboard:
+	LDI R18, 0				; reset counter
+
+scan_key:
+	MOV R19, R18
+	LSL R19					; Skiftar v‰nster 4 gÂnger
+	LSL R19			
+	LSL R19
+	LSL R19
+	OUT PORTB, R19			; set column and row
+	NOP						; Delay 9 cycles
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+	NOP
+	SBIC PINE, 6			; kollar ifall PINE pÂ 6 ‰r 0 sÂ skippas n‰sta steg annars forts‰tter den
+	RJMP return_key_val
+	INC R18					; R18 ˆkar med 1
+	CPI R18, 12				; 
+	BRNE scan_key			; v‰ntar tills knappen blir 0 (sl‰pps)
+	LDI R18, NO_KEY			; no key was pressed!
+
+return_key_val:
+	MOV RVAL, R18			; R18 kopieras till RVAL
+	RET						; ÂÅterv‰nder
+
+
+/*Uppgift 5.3.1
+read_keyboard:
+
+LDI R18, NO_KEY				; Ladda NO_KEY i R18
+
+return_key_val:
+	MOV RVAL, R18			; Kopiera innehÂllet i R18 till RVAL
+	RET						; ÅÂterv‰nd
+*/
+/* Uppgift 5.3.2
+read_keyboard old:
+
+IN	TEMP,PINB				; Skickar in data frÂn PINB till TEMP
+COM	TEMP					; Inverterar TEMP
+MOV	RVAL, TEMP				; Kopiera innehÂllet i R18 till RVAL
+	NOP						; Delay 2 cycles
+	NOP
+	RET						; ÅÂterv‰nder
+*/

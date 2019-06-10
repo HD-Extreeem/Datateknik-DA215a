@@ -1,0 +1,33 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.1.52</VERSION>
+ <DEVICE>"ATmega32U4"</DEVICE>
+ <WORKING_DIR>M:\_arbete\Datateknik\delay_routines\delay_routines\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.39.1005\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>M:\_arbete\Datateknik\delay_routines\delay_routines\delay_routines.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:\Program Files (x86)\Atmel\Atmel Toolchain\AVR Assembler\Native\2.1.39.1005\avrassembler\Include\m32U4def.inc</FILE>
+  <FILE>M:\_arbete\Datateknik\delay_routines\delay_routines\delay.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>M:\_arbete\Datateknik\delay_routines\delay_routines\Debug/delay_routines.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>delay_routines.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>delay_routines.map</FILE>
+  <FILE>delay_routines.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <init><FILE>M:\_arbete\Datateknik\delay_routines\delay_routines\delay_routines.asm</FILE><LINE>38</LINE></init>
+  <delay_1_micros><FILE>M:\_arbete\Datateknik\delay_routines\delay_routines\delay.inc</FILE><LINE>12</LINE></delay_1_micros>
+  <delay_micros><FILE>M:\_arbete\Datateknik\delay_routines\delay_routines\delay.inc</FILE><LINE>28</LINE></delay_micros>
+  <delay_ms><FILE>M:\_arbete\Datateknik\delay_routines\delay_routines\delay.inc</FILE><LINE>50</LINE></delay_ms>
+  <loop_dms><FILE>M:\_arbete\Datateknik\delay_routines\delay_routines\delay.inc</FILE><LINE>52</LINE></loop_dms>
+  <init_pins><FILE>M:\_arbete\Datateknik\delay_routines\delay_routines\delay_routines.asm</FILE><LINE>52</LINE></init_pins>
+  <main><FILE>M:\_arbete\Datateknik\delay_routines\delay_routines\delay_routines.asm</FILE><LINE>60</LINE></main>
+ </LABELS>
+</ASSEMBLER_INFO>

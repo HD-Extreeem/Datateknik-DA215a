@@ -1,0 +1,15 @@
+main:
+	LDI R24, 'H'
+	RCALL lcd_write_chr
+	LDI R24, 'E'
+	RCALL lcd_write_chr
+	LDI R24, 'L'
+	RCALL lcd_write_chr
+	LDI R24, 'L'
+	RCALL lcd_write_chr
+	LDI R24, 'O'
+	RCALL lcd_write_chr
+	LDI R24, '!'
+	RCALL lcd_write_chr
+loop:
+	RJMP loop
